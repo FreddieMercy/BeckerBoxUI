@@ -1,0 +1,61 @@
+﻿<Window x:Class="BeckerBox.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:beckerBox="clr-namespace:BeckerBox"
+    mc:Ignorable="d"
+    Title="MainWindow" Height="950" Width="1600" MouseMove="Window_MouseMove" Loaded="MainWindow_OnLoaded" Closing="MainWindow_OnClosing">
+
+    <Grid>
+        <TextBox x:Name="TextQueueTextBox" HorizontalAlignment="Left" Height="45" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="1392" FontSize="28"/>
+        <TextBox x:Name="ScreenCoordinatesTextBox" HorizontalAlignment="Left" Height="23" Margin="1411,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="141"/>
+
+        <!-- MainBoard Borders -->
+        <Border x:Name="MainUpperLeftBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="380" HorizontalAlignment="Left" Margin="0,50,0,0" VerticalAlignment="Top" Width="530"/>
+        <Border x:Name="MainUpperMiddleBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="380" HorizontalAlignment="Left" Margin="530,50,0,0" VerticalAlignment="Top" Width="530"/>
+        <Border x:Name="MainUpperRightBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="380" HorizontalAlignment="Left" Margin="1060,50,0,0" VerticalAlignment="Top" Width="530"/>
+        <Border x:Name="MainLowerLeftBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="380" HorizontalAlignment="Left" Margin="0,430,0,0" VerticalAlignment="Top" Width="530"/>
+        <Border x:Name="MainLowerMiddleBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="380" HorizontalAlignment="Left" Margin="530,430,0,0" VerticalAlignment="Top" Width="530"/>
+        <Border x:Name="MainLowerRightBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="380" HorizontalAlignment="Left" Margin="1060,430,0,0" VerticalAlignment="Top" Width="530"/>
+
+        <!-- Becker Box #1 -->
+        <TextBlock x:Name="MainUpperLeftBox" HorizontalAlignment="Left" Margin="0,50,0,0" TextWrapping="Wrap" Text="-       B      -A               C -       D      -" VerticalAlignment="Top" Height="380" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="MainBoardGridClick"/>
+
+        <!-- Becker Box #2 -->
+        <TextBlock x:Name="MainUpperMiddleBox" HorizontalAlignment="Left" Margin="530,50,0,0" TextWrapping="Wrap" Text="-       F       -E               G -       H      -" VerticalAlignment="Top" Height="380" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="MainBoardGridClick"/>
+
+        <!-- Becker Box #3 -->
+        <TextBlock x:Name="MainUpperRightBox" HorizontalAlignment="Left" Margin="1060,50,0,0" TextWrapping="Wrap" Text="-        J       -I                K -        L      -" VerticalAlignment="Top" Height="380" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="MainBoardGridClick"/>
+
+        <!-- Becker Box #4 -->
+        <TextBlock x:Name="MainLowerLeftBox" HorizontalAlignment="Left" Margin="0,430,0,0" TextWrapping="Wrap" Text="-       N      -M              O -       P       -" VerticalAlignment="Top" Height="380" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="MainBoardGridClick"/>
+
+        <!-- Becker Box #5 -->
+        <TextBlock x:Name="MainLowerMiddleBox" HorizontalAlignment="Left" Margin="530,430,0,0" TextWrapping="Wrap" Text="-       R      -Q               S -       T      -" VerticalAlignment="Top" Height="380" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="MainBoardGridClick"/>
+
+        <!-- Becker Box #6 -->
+        <TextBlock x:Name="MainLowerRightBox" HorizontalAlignment="Left" Margin="1060,430,0,0" TextWrapping="Wrap" Text="U      V     W   -                - Y       X      Z" VerticalAlignment="Top" Height="380" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="MainBoardGridClick"/>
+
+        <!-- SubBoard Borders -->
+        <Border x:Name="InnerUpperBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="253" HorizontalAlignment="Left" Margin="530,50,0,0" VerticalAlignment="Top" Width="530" Visibility="Hidden"/>
+        <Border x:Name="InnerLeftBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="253" HorizontalAlignment="Left" Margin="0,303,0,0" VerticalAlignment="Top" Width="530" Visibility="Hidden"/>
+        <Border x:Name="InnerRightBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="253" HorizontalAlignment="Left" Margin="1060,303,0,0" VerticalAlignment="Top" Width="530" Visibility="Hidden"/>
+        <Border x:Name="InnerBottomLeftBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="253" HorizontalAlignment="Left" Margin="0,556,0,0" VerticalAlignment="Top" Width="530" Visibility="Hidden"/>
+        <Border x:Name="InnerBottomMiddleBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="253" HorizontalAlignment="Left" Margin="530,556,0,0" VerticalAlignment="Top" Width="530" Visibility="Hidden"/>
+        <Border x:Name="InnerBottomRightBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="253" HorizontalAlignment="Left" Margin="1060,556,0,0" VerticalAlignment="Top" Width="530" Visibility="Hidden"/>
+
+        <!-- Alph Letter Boxes -->
+        <TextBlock x:Name="InnerUpperBox" HorizontalAlignment="Left" Margin="530,50,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="253" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="InnerBoardGridClick"/>
+        <TextBlock x:Name="InnerLeftBox" HorizontalAlignment="Left" Margin="0,303,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="253" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="InnerBoardGridClick"/>
+        <TextBlock x:Name="InnerRightBox" HorizontalAlignment="Left" Margin="1060,303,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="253" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="InnerBoardGridClick"/>
+        <TextBlock x:Name="InnerBottomLeftBox" HorizontalAlignment="Left" Margin="0,556,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="253" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="InnerBoardGridClick"/>
+        <TextBlock x:Name="InnerBottomMiddleBox" HorizontalAlignment="Left" Margin="530,556,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="253" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="InnerBoardGridClick"/>
+        <TextBlock x:Name="InnerBottomRightBox" HorizontalAlignment="Left" Margin="1060,556,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="253" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="InnerBoardGridClick"/>
+
+        <!-- Clear and Delete Btns -->
+        <Button x:Name="ClearButton" Content="Clear" HorizontalAlignment="Left" Margin="0,810,0,0" VerticalAlignment="Top" Width="785" Height="109" FontSize="24" MouseEnter="MouseEnterBtn" MouseLeave="MouseLeaveBtn" Click="ClearButton_Click"/>
+        <Button x:Name="DeleteCancelButton" Content="BackSpace" HorizontalAlignment="Left" Margin="790,810,0,0" VerticalAlignment="Top" Width="800" Height="109" FontSize="24" MouseEnter="MouseEnterBtn" MouseLeave="MouseLeaveBtn" Click="DeleteCancelButton_Click"/>
+    </Grid>
+
+</Window>

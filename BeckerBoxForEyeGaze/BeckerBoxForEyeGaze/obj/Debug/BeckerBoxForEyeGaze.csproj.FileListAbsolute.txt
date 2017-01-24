@@ -1,0 +1,70 @@
+C:\Users\junhao.zhang.freddie\Documents\Visual Studio 2013\Projects\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\BeckerBoxForEyeGaze.exe.config
+C:\Users\junhao.zhang.freddie\Documents\Visual Studio 2013\Projects\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\BeckerBoxForEyeGaze.exe
+C:\Users\junhao.zhang.freddie\Documents\Visual Studio 2013\Projects\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\BeckerBoxForEyeGaze.pdb
+C:\Users\junhao.zhang.freddie\Documents\Visual Studio 2013\Projects\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.csprojResolveAssemblyReference.cache
+C:\Users\junhao.zhang.freddie\Documents\Visual Studio 2013\Projects\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\MainWindow.g.cs
+C:\Users\junhao.zhang.freddie\Documents\Visual Studio 2013\Projects\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\App.g.cs
+C:\Users\junhao.zhang.freddie\Documents\Visual Studio 2013\Projects\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze_MarkupCompile.cache
+C:\Users\junhao.zhang.freddie\Documents\Visual Studio 2013\Projects\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze_MarkupCompile.lref
+C:\Users\junhao.zhang.freddie\Documents\Visual Studio 2013\Projects\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\MainWindow.baml
+C:\Users\junhao.zhang.freddie\Documents\Visual Studio 2013\Projects\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.g.resources
+C:\Users\junhao.zhang.freddie\Documents\Visual Studio 2013\Projects\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.Properties.Resources.resources
+C:\Users\junhao.zhang.freddie\Documents\Visual Studio 2013\Projects\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.csproj.GenerateResource.Cache
+C:\Users\junhao.zhang.freddie\Documents\Visual Studio 2013\Projects\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.exe
+C:\Users\junhao.zhang.freddie\Documents\Visual Studio 2013\Projects\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.pdb
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\BeckerBoxForEyeGaze.exe.config
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.exe
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.pdb
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\BeckerBoxForEyeGaze.exe
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\BeckerBoxForEyeGaze.pdb
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.csprojResolveAssemblyReference.cache
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\MainWindow.g.cs
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\App.g.cs
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze_MarkupCompile.cache
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze_MarkupCompile.lref
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\MainWindow.baml
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.g.resources
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.Properties.Resources.resources
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.csproj.GenerateResource.Cache
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\BeckerBoxForEyeGaze.exe.config
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.exe
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.pdb
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\MainWindow.xaml.cs
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze_Content.g.cs
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\EyeXFramework.dll
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\Tobii.EyeX.Client.Net20.dll
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\Tobii.EyeX.Client.dll
+=======
+C:\Users\Patrick\Desktop\asd\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\BeckerBoxForEyeGaze.exe.config
+C:\Users\Patrick\Desktop\asd\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.exe
+C:\Users\Patrick\Desktop\asd\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.pdb
+C:\Users\Patrick\Desktop\asd\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\BeckerBoxForEyeGaze.exe
+C:\Users\Patrick\Desktop\asd\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\BeckerBoxForEyeGaze.pdb
+C:\Users\Patrick\Desktop\asd\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.csprojResolveAssemblyReference.cache
+C:\Users\Patrick\Desktop\asd\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\MainWindow.g.cs
+C:\Users\Patrick\Desktop\asd\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\App.g.cs
+C:\Users\Patrick\Desktop\asd\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze_MarkupCompile.cache
+C:\Users\Patrick\Desktop\asd\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze_MarkupCompile.lref
+C:\Users\Patrick\Desktop\asd\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\MainWindow.baml
+C:\Users\Patrick\Desktop\asd\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.g.resources
+C:\Users\Patrick\Desktop\asd\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.Properties.Resources.resources
+C:\Users\Patrick\Desktop\asd\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.csproj.GenerateResource.Cache
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\BeckerBoxForEyeGaze.exe.config
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.exe
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.pdb
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\Tobii.EyeX.Client.dll
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\MainWindow.xaml.cs
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\BeckerBoxForEyeGaze.exe
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\BeckerBoxForEyeGaze.pdb
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\EyeXFramework.dll
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\Tobii.EyeX.Client.Net20.dll
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.csprojResolveAssemblyReference.cache
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\MainWindow.g.cs
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\App.g.cs
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze_Content.g.cs
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze_MarkupCompile.cache
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze_MarkupCompile.lref
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\MainWindow.baml
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.g.resources
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.Properties.Resources.resources
+C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.csproj.GenerateResource.Cache

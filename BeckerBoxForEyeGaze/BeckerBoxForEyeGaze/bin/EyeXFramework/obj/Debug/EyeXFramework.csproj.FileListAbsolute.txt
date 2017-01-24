@@ -1,0 +1,6 @@
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\EyeXFramework\bin\Debug\EyeXFramework.dll
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\EyeXFramework\bin\Debug\EyeXFramework.pdb
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\EyeXFramework\bin\Debug\Tobii.EyeX.Client.Net20.dll
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\EyeXFramework\obj\Debug\EyeXFramework.csprojResolveAssemblyReference.cache
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\EyeXFramework\obj\Debug\EyeXFramework.dll
+C:\Users\junhao.zhang.freddie\gitHub\Eris-Autonomous-Wheelchair\BeckerBoxUi\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\EyeXFramework\obj\Debug\EyeXFramework.pdb
