@@ -77,6 +77,23 @@ namespace BeckerBox
             _tBox.Text = "";
         }
 
+        private void Delete_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(!string.IsNullOrEmpty(_tBox.Text) && _tBox.Text.Length > 0)
+            {
+                _tBox.Text = _tBox.Text.Substring(0, _tBox.Text.Length - 1);
+            }
+        }
+
+        private void Enter_Button_Click(object sender, RoutedEventArgs e)
+        {
+            _tBox.Text += "\n";
+        }
+        private void Space_Button_Click(object sender, RoutedEventArgs e)
+        {
+            _tBox.Text += " ";
+        }
+
     }
     
 }
