@@ -30,8 +30,9 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-
-            <TextBlock Grid.Column="0" x:Name="_tBox" Background="LightGray" FontSize="50" Margin="{Binding margin}" TextWrapping="Wrap" VerticalAlignment="Stretch" />
+            <ScrollViewer>
+                <TextBlock Grid.Column="0" x:Name="_tBox" Background="LightGray" FontSize="50" Margin="{Binding margin}" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
+            </ScrollViewer>
         </Grid>
 
         <Grid x:Name="_keyBoard" Grid.Row="1" Margin="{Binding margin}">
