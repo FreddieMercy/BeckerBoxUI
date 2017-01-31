@@ -30,7 +30,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <ScrollViewer>
+            <ScrollViewer beckerBox:Helper.AutoScroll="True">
                 <TextBlock Grid.Column="0" x:Name="_tBox" Background="LightGray" FontSize="50" Margin="{Binding margin}" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
             </ScrollViewer>
         </Grid>

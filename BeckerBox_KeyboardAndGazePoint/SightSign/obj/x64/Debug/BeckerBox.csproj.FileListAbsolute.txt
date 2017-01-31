@@ -148,3 +148,4 @@ C:\Users\junhao.zhang.freddie\gitHub\BeckerBoxUI\BeckerBox_KeyboardAndGazePoint\
 C:\Users\junhao.zhang.freddie\gitHub\BeckerBoxUI\BeckerBox_KeyboardAndGazePoint\SightSign\obj\x64\Debug\BeckerBox.g.resources
 C:\Users\junhao.zhang.freddie\gitHub\BeckerBoxUI\BeckerBox_KeyboardAndGazePoint\SightSign\obj\x64\Debug\BeckerBox.Properties.Resources.resources
 C:\Users\junhao.zhang.freddie\gitHub\BeckerBoxUI\BeckerBox_KeyboardAndGazePoint\SightSign\obj\x64\Debug\BeckerBox.csproj.GenerateResource.Cache
+C:\Users\junhao.zhang.freddie\gitHub\BeckerBoxUI\BeckerBox_KeyboardAndGazePoint\SightSign\obj\x64\Debug\GeneratedInternalTypeHelper.g.cs
