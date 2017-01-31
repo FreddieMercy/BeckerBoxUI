@@ -1,5 +1,4 @@
 ﻿using EyeXFramework;
-using EyeXFramework.Wpf;
 using Tobii.EyeX.Framework;
 using System;
 using System.Runtime.InteropServices;

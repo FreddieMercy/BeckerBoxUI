@@ -68,3 +68,6 @@ C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\ob
 C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.g.resources
 C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.Properties.Resources.resources
 C:\Users\junhao.zhang.freddie\Desktop\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.csproj.GenerateResource.Cache
+C:\Users\junhao.zhang.freddie\gitHub\BeckerBoxUI\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\bin\Debug\BeckerBoxForEyeGaze.exe.config
+C:\Users\junhao.zhang.freddie\gitHub\BeckerBoxUI\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.exe
+C:\Users\junhao.zhang.freddie\gitHub\BeckerBoxUI\BeckerBoxForEyeGaze\BeckerBoxForEyeGaze\obj\Debug\BeckerBoxForEyeGaze.pdb
