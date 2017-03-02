@@ -69,13 +69,25 @@ namespace BeckerBox
             template.VisualTree = btn;
             return template;
         }
-
-        private void setUpAllKeysStyle(object sender, EventArgs e)
+        
+        private static object GetValueFromStyle(object styleKey, DependencyProperty property)
         {
-            for (int i = 0; i < keyboard_Rows.Count; i++)
+            Style style = Application.Current.TryFindResource(styleKey) as Style;
+            while (style != null)
             {
-                keyboard_Rows[i].ItemTemplate = setUpTheKeysStyle(_keyBoard.Children.IndexOf((keyboard_Rows[i].Parent as Grid)));
+                var setter =
+                    style.Setters
+                        .OfType<Setter>()
+                        .FirstOrDefault(s => s.Property == property);
+
+                if (setter != null)
+                {
+                    return setter.Value;
+                }
+
+                style = style.BasedOn;
             }
+            return null;
         }
 
         private void otherMarginInit()
@@ -101,8 +113,44 @@ namespace BeckerBox
             }
         }
 
-
+        public int _TabWidth = 0;
+        public int _TabHeight = 0;
         public int _margin = 0;
+        public int _tabFontSize = 0;
+
+        public int tabFontSize
+        {
+            get { return _tabFontSize; }
+            set
+            {
+                _tabFontSize = value;
+                //Notify the binding that the value has changed.
+                this.OnPropertyChanged("tabFontSize");
+            }
+        }
+        public int TabWidth
+        {
+            get { return _TabWidth; }
+            set
+            {
+                _TabWidth = value;
+                //Notify the binding that the value has changed.
+                this.OnPropertyChanged("TabWidth");
+            }
+        }
+
+        public int TabHeight
+        {
+            get { return _TabHeight; }
+            set
+            {
+                _TabHeight = value;
+                //Notify the binding that the value has changed.
+                this.OnPropertyChanged("TabHeight");
+            }
+        }
+
+
         public int margin
         {
             get { return _margin; }

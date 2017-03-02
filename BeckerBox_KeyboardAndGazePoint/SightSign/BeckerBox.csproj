@@ -106,12 +106,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CS\ScrollViewerHelper.cs" />
-    <Compile Include="CS\Methods\Inputs\ChangableInputs.cs" />
-    <Compile Include="CS\Methods\Inputs\Inputs.cs" />
-    <Compile Include="CS\Methods\Keys.cs" />
-    <Compile Include="CS\Methods\Methods.cs" />
-    <Compile Include="CS\Methods\requestTimer.cs" />
+    <Compile Include="CS\GazingOn.cs" />
+    <Compile Include="CS\KeyBoard\Methods\Keyboard_EventHandlers.cs" />
+    <Compile Include="CS\KeyBoard\ScrollViewerHelper.cs" />
+    <Compile Include="CS\KeyBoard\Methods\Inputs\ChangableInputs.cs" />
+    <Compile Include="CS\KeyBoard\Methods\Inputs\Inputs.cs" />
+    <Compile Include="CS\KeyBoard\Methods\Inputs\Keys.cs" />
+    <Compile Include="CS\KeyBoard\Methods\Methods.cs" />
+    <Compile Include="CS\KeyBoard\_kSettings.cs" />
+    <Compile Include="CS\requestTimer.cs" />
     <Compile Include="CS\Settings.cs" />
     <Compile Include="Settings1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -175,7 +178,9 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="CS\BeckerBox\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

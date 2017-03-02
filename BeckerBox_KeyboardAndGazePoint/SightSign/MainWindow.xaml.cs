@@ -13,23 +13,12 @@ using System.Collections;
 
 namespace BeckerBox
 {
-    // This Window hosts two InkCanvases. The InkCanvas that's lower in the z-order shows ink 
-    // which is to be traced out by an animating dot. As the dot moves, it leaves a trail of 
-    // ink that's added to other InkCanvas. Also as the dot moves, the app moves a robot arm 
-    // such that the arm follows the same path as the dot. 
-    public partial class MainWindow : Window
-    { 
-        //for Becker Box, counting the gaze time
-        private const long _timerInterval = 750;
-        private requestTimer _Timer = new requestTimer(_timerInterval);
-        //--------------------------------------
 
-        private EyeXHost _eyeXHost = new EyeXHost();
-        
+    public partial class MainWindow : Window, INotifyPropertyChanged
+    { 
         public MainWindow()
         {
             InitializeComponent();
-            WindowState = WindowState.Maximized;
 
             Settings();
 
@@ -44,56 +33,62 @@ namespace BeckerBox
             };
 
             ((MainWindow)System.Windows.Application.Current.MainWindow).SizeChanged += setUpAllKeysStyle;
+
+            _eyeXHost.Start();
+
+            var stream = _eyeXHost.CreateGazePointDataStream(Tobii.EyeX.Framework.GazePointDataMode.LightlyFiltered);
+
+            stream.Next += (s, e) =>
+            {
+                Dispatcher.BeginInvoke((Action)(() =>
+                    {
+                        //can be improved to reduce the complexity, if the "GazingOnObj" hasn't changed.
+                        lock (_lock)
+                        {
+                            if (GazingOnObj != tmpBtnCollection.GetElements<Button>(e.X, e.Y))
+                            {
+                                if (GazingOnObj != null)
+                                {
+                                    GazingOnObj.Background = btnColor;
+                                    _Timer.Stop();
+                                }
+
+                                GazingOnObj = tmpBtnCollection.GetElements<Button>(e.X, e.Y);
+                                inTobiiStreamFoundGazingElement(GazingOnObj);
+                            }
+                        }
+
+                    }), System.Windows.Threading.DispatcherPriority.Normal);
+            };
+
         }
-        
+
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            //GazeMouse.Attach(this); //DON'T DELETE IT!!!
-            setUpAllKeysStyle(null, null);
+            /*
+            GazeMouse.Attach(this); //DON'T DELETE IT!!! For the next year so they know there exists such thing
+           */
+            FindUtinityBtns();
+            WindowState = WindowState.Maximized; //Don't change it, since the "setUpAllKeysStyle" subscribe it, and "setUpAllKeysStyle" contains "CollectionAlltheButtonsInTheView"
+
         }
 
         //It is important to kill all other threads before completely exiting otherwise the program won't close properly
         //For whatever reason, c# destructors don't work so well so we have to explicitly tell the timer to kill its thread.
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
-        {/*
-            if (_eyeXHost.IsStarted)
+        {
+            /*
+            Attention ---> if (_eyeXHost.IsStarted)
             {
                 GazeMouse.DetachAll(); //DON'T DELETE IT!!!
             }
+            
+            */
             _Timer.KillThread();
-            //base.OnExit(e);
             _eyeXHost.Dispose();
             // always dispose on exit
-            */
+            
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            _tBox.Text += (sender as Button).Content;
-        }
-
-        private void _Clear_Click(object sender, RoutedEventArgs e)
-        {
-            _tBox.Text = "";
-        }
-
-        private void Delete_Button_Click(object sender, RoutedEventArgs e)
-        {
-            if(!string.IsNullOrEmpty(_tBox.Text) && _tBox.Text.Length > 0)
-            {
-                _tBox.Text = _tBox.Text.Substring(0, _tBox.Text.Length - 1);
-            }
-        }
-
-        private void Enter_Button_Click(object sender, RoutedEventArgs e)
-        {
-            _tBox.Text += "\n";
-        }
-        private void Space_Button_Click(object sender, RoutedEventArgs e)
-        {
-            _tBox.Text += " ";
-        }
-
     }
     
 }

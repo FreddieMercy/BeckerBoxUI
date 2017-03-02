@@ -6,6 +6,17 @@ using System.Collections.Concurrent;
 using System.Threading;
 using System.Diagnostics;
 using System.Windows.Controls;
+using System.ComponentModel;
+using System.Windows;
+using Microsoft.HandsFree.Mouse;
+using System.Linq;
+using System.Windows.Input;
+using System.Windows.Media;
+using EyeXFramework;
+using System.Collections.ObjectModel;
+using System.Collections;
+using System.Windows.Data;
+using System.Windows.Media.Imaging;
 
 namespace BeckerBox
 {
@@ -14,10 +25,11 @@ namespace BeckerBox
 		private Stopwatch _Stopwatch;
 		public long _timeout { get; set; }
 		private Thread _th;
-		public object _client { get; set; }
+		public UIElement _client { get; set; }
         public event EventHandler _pressIT;
+        private object _lock = new object();
 
-        public requestTimer (long timeout, object client = null)
+        public requestTimer (long timeout, UIElement client = null)
 		{
 			_Stopwatch = new Stopwatch ();
 			_timeout = timeout;
@@ -64,13 +76,23 @@ namespace BeckerBox
 
                     if (_client != null)
                     {
+
                         this.Stop();
                         var handler = _pressIT;
                         if (null != handler)
                         {
-                            _pressIT(_client, null);
+                            _client.Dispatcher.BeginInvoke((Action)(() =>
+                            {
+                                        //can be improved to reduce the complexity, if the "GazingOnObj" hasn't changed.
+                                        lock (_lock)
+                                {
+                                    _pressIT(_client, null);
+                                }
+                            }), System.Windows.Threading.DispatcherPriority.Normal);
+                            this.Start();
                         }
-                        this.Start();
+
+
                     }
                     /*
                     else
@@ -102,7 +124,7 @@ namespace BeckerBox
             */
         }
 
-        public void Reset(object sender)
+        public void Reset(UIElement sender)
         {
             this.Stop();
             _pressIT = null;

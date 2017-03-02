@@ -11,7 +11,6 @@ using EyeXFramework;
 using System.Collections.ObjectModel;
 using System.Collections;
 
-
 namespace BeckerBox
 {
     public static class Helper
