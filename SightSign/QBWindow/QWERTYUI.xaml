@@ -1,0 +1,177 @@
+﻿<Window x:Class="BeckerBox.QBWindow.QWERTYUI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:beckerBox="clr-namespace:BeckerBox"
+        mc:Ignorable="d"
+        Title="QWERTY" Height="950" Width="1600" Loaded="MainWindow_OnLoaded" Closing="MainWindow_OnClosing">
+
+    <Window.Resources>
+        <Style x:Key="ScaleStyle" TargetType="Button">
+            <Style.Triggers>
+                <Trigger Property="Focusable" Value="True">
+                    <!-- We are going to use the "Focusable" for this case only. Change to other attributes if need. -->
+                    <!-- All buttons "Focusable" had been set to "false" at "CollectionAlltheButtonsInTheView()" and "CollectionMainBoxInTheView(object sender, EventArgs e)" -->
+                    <Setter Property="Grid.ZIndex" Value="100"/>
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="FontSize" Value="60" />
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+        </Style>
+
+        <Style TargetType="{x:Type Control}" x:Key="baseStyle">
+            <Setter Property="FontSize" Value="60" />
+        </Style>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ScaleStyle}"></Style>
+        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource baseStyle}"></Style>
+
+    </Window.Resources>
+    <Grid>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <ScrollViewer beckerBox:Helper.AutoScroll="True">
+                    <TextBlock Grid.Column="0" x:Name="_tBox" Background="LightGray" FontSize="50" Margin="{Binding margin}" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
+                </ScrollViewer>
+            </Grid>
+
+            <Grid x:Name="_keyBoard" Grid.Row="1" Margin="{Binding margin}">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="{Binding margin}"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="{Binding margin}"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="{Binding margin}"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <ItemsControl x:Name="_Keyboard_FirstRow" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel IsItemsHost="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                    </ItemsControl>
+                    <Button x:Name="Del_btn" Grid.Column="1" Content="Delete" Click="Delete_Button_Click"></Button>
+                </Grid>
+                <Grid Grid.Row="1"/>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="Speak_btn" Grid.Column="0" Content="Speak" Click="Speak_btn_Click"></Button>
+                    <ItemsControl x:Name="_Keyboard_SecondRow" Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel IsItemsHost="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  FlowDirection="RightToLeft"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </Grid>
+                <Grid Grid.Row="3"/>
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="_Clear" Margin="{Binding margin_right}" Grid.Column="0" Content="Clear" Click="_Clear_Click"></Button>
+                    <ItemsControl x:Name="_Keyboard_ThirdRow" Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel IsItemsHost="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    <Button x:Name="Enter_btn" Grid.Column="2" Content="Enter" Click="Enter_Button_Click"></Button>
+                </Grid>
+                <Grid Grid.Row="5"/>
+                <Grid Grid.Row="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="_Shift" Margin="{Binding margin_right}" Grid.Column="0" Content="Shift" Click="_Shift_Click"></Button>
+                    <ItemsControl x:Name="_Keyboard_ForthRow" Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel IsItemsHost="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    <Button x:Name="Space_Btn" Grid.Column="2" Content="Space" Click="Space_Button_Click"></Button>
+                </Grid>
+
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="0.5*" MinWidth="100"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <!--Border Grid.Column="0" BorderBrush="Silver" BorderThickness="5" HorizontalAlignment="Stretch" Margin="{Binding halfMargin_value}" VerticalAlignment="Stretch"-->
+                <!--RichTextBox x:Name="_tbBotLeft" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="{Binding halfMargin}">
+                                <FlowDocument>
+                                    <Paragraph FontSize="100">
+                                    </Paragraph>
+                                </FlowDocument>
+                            </-->
+                <Grid Grid.Column="0" x:Name="_Display">
+                    <ItemsControl x:Name="_tbBotLeft" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="{Binding halfMargin}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel IsItemsHost="True" HorizontalAlignment="Center" VerticalAlignment="Stretch"  FlowDirection="LeftToRight"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </Grid>
+                <!--/-->
+                <!--GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Background="White"/-->
+                <Button x:Name="DoneBtn" Grid.Column="1" Panel.ZIndex="0" Click="DoneBtnClick" Visibility="Hidden">Done</Button>
+                <Grid Panel.ZIndex="1" Grid.Column="1">
+                    <Grid x:Name="_btnBotGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="0" x:Name="_btnBotLeft" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="{Binding halfMargin}" Click="_btnBotLeft_Click" Content="&#x2190;" />
+                        <Button Grid.Column="1" x:Name="_btnBotRight" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="{Binding halfMargin_right}" Click="_btnBotRight_Click" Content="&#x2794;" />
+                    </Grid>
+                </Grid>
+            </Grid>
+
+        </Grid>
+
+
+    </Grid>
+
+</Window>

@@ -1,5 +1,4 @@
 ﻿using EyeXFramework;
-using EyeXFramework.Wpf;
 using Tobii.EyeX.Framework;
 using System;
 using System.Runtime.InteropServices;
@@ -11,7 +10,10 @@ namespace BeckerBox
     {
         // Keep a reference to the host so it is not garbage 
         // collected.
-        //private WpfEyeXHost _eyeXHost = new WpfEyeXHost();
+
+        //_timeToWaitBeforeRecalibrate
+
+        //private EyeXHost _eyeXHost = new EyeXHost();
         public App()
         {/*
             _eyeXHost.Start();

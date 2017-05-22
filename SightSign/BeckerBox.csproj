@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <PlatformTarget>x64</PlatformTarget>
@@ -40,10 +41,6 @@
     </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EyeXFramework, Version=1.7.489.0, Culture=neutral, PublicKeyToken=70326046dcdce6cb, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\EyeXFramework.dll</HintPath>
-    </Reference>
     <Reference Include="FSharp.Core, Version=4.3.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\external\FSharp.Core.dll</HintPath>
@@ -84,6 +81,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -101,6 +99,7 @@
       <HintPath>..\packages\SightSignAPI.1.1.2074\lib\net461\Tobii.Gaze.Core.Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -110,14 +109,46 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DispatchedItems.cs" />
-    <Compile Include="MathHelper.cs" />
-    <Compile Include="requestTimer.cs" />
+    <Compile Include="BeckerBoxUI.xaml.cs">
+      <DependentUpon>BeckerBoxUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BeckerBox\bMethods\BeckerBox_EventHandlers.cs" />
+    <Compile Include="BeckerBox\bMethods\MathHelper.cs" />
+    <Compile Include="BeckerBox\bSettings.cs" />
+    <Compile Include="BeckerBox\bMethods\DispatchedItems.cs" />
+    <Compile Include="BeckerBox\bMethods\bMethods.cs" />
+    <Compile Include="CS\DisplayString\DisplayingString.cs" />
+    <Compile Include="CS\DisplayString\Display_Handlers.cs" />
+    <Compile Include="Tobii_Eris_Library\CalibrationAnalyzer.cs" />
+    <Compile Include="Tobii_Eris_Library\EnglishWordBank.cs" />
+    <Compile Include="Tobii_Eris_Library\GazingDataFilter.cs" />
+    <Compile Include="CS\GazingOn.cs" />
+    <Compile Include="Tobii_Eris_Library\GeneralTools.cs" />
+    <Compile Include="Tobii_Eris_Library\Others.cs" />
+    <Compile Include="Tobii_Eris_Library\UniversalDisplayString.cs" />
+    <Compile Include="KeyBoard\kMethods\Keyboard_EventHandlers.cs" />
+    <Compile Include="KeyBoard\ScrollViewerHelper.cs" />
+    <Compile Include="Tobii_Eris_Library\Inputs\ChangableInputs.cs" />
+    <Compile Include="Tobii_Eris_Library\Inputs\Inputs.cs" />
+    <Compile Include="Tobii_Eris_Library\Inputs\Keys.cs" />
+    <Compile Include="KeyBoard\kMethods\kMethods.cs" />
+    <Compile Include="KeyBoard\_kSettings.cs" />
+    <Compile Include="Tobii_Eris_Library\requestTimer.cs" />
+    <Compile Include="CS\Settings.cs" />
+    <Compile Include="Tobii_Eris_Library\StatisticsLogger.cs" />
+    <Compile Include="QBWindow\Recalibration.xaml.cs">
+      <DependentUpon>Recalibration.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings1.settings</DependentUpon>
     </Compile>
+    <Compile Include="Tobii_Eris_Library\WordBank.cs" />
+    <Page Include="BeckerBoxUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -130,6 +161,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="QBWindow\Recalibration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -145,29 +180,16 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Content Include="msvcp110.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="msvcr110.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="myGazeAPI64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Tobii.EyeX.Client.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TobiiGazeCore64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="vccorlib110.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -183,7 +205,12 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>copy .\..\..\..\DictionaryFiles\google-10000-english-usa.txt .\
+copy .\..\..\..\DictionaryFiles\20k.txt .\</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

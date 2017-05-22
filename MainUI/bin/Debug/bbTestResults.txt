@@ -1,0 +1,9 @@
+BB Keyboard Test Results
+
+Tested By:Patrick Guo
+BeckerBox Keyboard Hover-To-Click time: 1000ms
+
+
+Logging began at: 4/28/2017 9:08:03 AM
+Latest Log DateTime: 1/1/0001 12:00:00 AM
+Logging Start Time and Latest Log Time difference: -736446.09:08:03.7523628

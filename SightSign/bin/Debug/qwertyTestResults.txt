@@ -1,0 +1,54 @@
+QWERTY Keyboard Test Results
+
+Tested By: Alex Kerr
+QWERTY Keyboard Hover-To-Click time: 1000ms
+
+Number of Deletes pressed: 0
+Number of Spelling Errors: 0
+Number of Keys pressed pressed: 0
+
+4/25/2017 9:37:44 AM : h
+4/25/2017 9:37:44 AM : Calibration Rating: 10
+
+4/25/2017 9:37:44 AM : e
+4/25/2017 9:37:44 AM : Calibration Rating: 10
+
+4/25/2017 9:37:45 AM : l
+4/25/2017 9:37:45 AM : Calibration Rating: 10
+
+4/25/2017 9:37:45 AM : l
+4/25/2017 9:37:45 AM : Calibration Rating: 10
+
+4/25/2017 9:37:45 AM : o
+4/25/2017 9:37:45 AM : Calibration Rating: 10
+
+4/25/2017 9:37:47 AM : (space)
+4/25/2017 9:37:47 AM : Calibration Rating: 10
+
+4/25/2017 9:37:48 AM : w
+4/25/2017 9:37:48 AM : Calibration Rating: 10
+
+4/25/2017 9:37:49 AM : o
+4/25/2017 9:37:49 AM : Calibration Rating: 10
+
+4/25/2017 9:37:49 AM : r
+4/25/2017 9:37:49 AM : Calibration Rating: 10
+
+4/25/2017 9:37:50 AM : l
+4/25/2017 9:37:50 AM : Calibration Rating: 10
+
+4/25/2017 9:37:50 AM : d
+4/25/2017 9:37:50 AM : Calibration Rating: 10
+
+Number of Deletes pressed: 0
+Number of Spelling Errors: 0
+Number of Keys pressed pressed: 11
+
+Number of Deletes pressed: 0
+Number of Spelling Errors: 0
+Number of Keys pressed pressed: 0
+
+
+Logging began at: 4/25/2017 9:37:40 AM
+Latest Log DateTime: 4/25/2017 9:37:50 AM
+Logging Start Time and Latest Log Time difference: 00:00:10.6500149

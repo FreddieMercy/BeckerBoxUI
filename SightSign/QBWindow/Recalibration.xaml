@@ -1,0 +1,38 @@
+﻿<Window x:Class="BeckerBox.QBWindow.Recalibration"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BeckerBox.QBWindow"
+        mc:Ignorable="d"
+        Title="Recalibration" Closing="Window_Closing" Height="800" Width="500" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1.5*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Red" FontSize="55">Calibration is bad?</TextBlock>
+            <Grid Grid.Row="1" x:Name="RecalibrateParent">
+                <Grid x:Name="Recalibrate">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1.5*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Green" FontSize="26">Recalibrate in (press the button to cancel):</TextBlock>
+                    <TextBlock x:Name="_CountDownTB" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="130" Foreground="Red" Padding="0,0,0,20"></TextBlock>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Button x:Name="_CancelBtn" Grid.Row="1" Margin="5" Click="Button_Click"><TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="130">Cancel</TextBlock></Button>
+        <Button x:Name="_BBtn" Grid.Row="2" Margin="5" Click="_BBtn_Click">
+            <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="90">Recalibrate</TextBlock>
+        </Button>
+    </Grid>
+</Window>

@@ -1,372 +1,210 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
-using Microsoft.HandsFree.Mouse;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
+using System.Text;
 using EyeXFramework;
-using EyeXFramework.Wpf;
-using Tobii.EyeX.Framework;
+using Tobii_Eris_Library;
+using System.Windows.Media;
+using System.Collections.Generic;
 
 namespace BeckerBox
 {
-    // This Window hosts two InkCanvases. The InkCanvas that's lower in the z-order shows ink 
-    // which is to be traced out by an animating dot. As the dot moves, it leaves a trail of 
-    // ink that's added to other InkCanvas. Also as the dot moves, the app moves a robot arm 
-    // such that the arm follows the same path as the dot. 
-    public partial class MainWindow : Window
-    {
-        //for Becker Box, counting the gaze time
-        private const long _timerInterval = 750;
-        private requestTimer _Timer = new requestTimer(_timerInterval);
-        private object _lock = new object();
-        private TextBlock _lockedSender = null;
-        //--------------------------------------
-        private enum BoardType
+    public partial class MainWindow : Window, INotifyPropertyChanged
+    { 
+        public int SelectedIndex
         {
-            MainBoard,
-            InnerBoxBoard
+            set
+            {
+                _TabControl.SelectedIndex = value;
+            }
         }
 
-        private enum BoxSection
-        {
-            Up,
-            Left,
-            Right,
-            Down
-        }
-
-        //All the becker boxes
-        private BoardType mCurrentBoard;
-        private List<TextBlock> mMainBoardBoxes;
-        private List<TextBlock> mInnerBoardBoxes;
-        //Borders
-        private List<Border> mMainBorders;
-        private List<Border> mInnerBorders;
-
-        MathHelper.Point2D mScreenCoordinates;
-        //private WpfEyeXHost _eyeXHost = new WpfEyeXHost();
-        public MainWindow()
+        public MainWindow(List<Button> _inputBtns, UserControl _Parent, StatisticsLogger s1, StatisticsLogger s2)
         {
             InitializeComponent();
-            WindowState = WindowState.Maximized;
-            /*
+
+            inputBtns = _inputBtns;
+            myParent = _Parent;
+
+            //Add the initial buttons in "BeckerBoxUI.xaml"
+            foreach (Button x in inputBtns)
+            {
+                IsControlXYandWidthHeight tmp = new IsControlXYandWidthHeight(x);
+                OwnerBtns.Add(tmp);
+            }
+
+            Settings(); //QWERTY
+
+            //sort all the keys above to their locations as specified
+            SortKeys(); //QWERTY
+
+            SetItemssourceOfKeyboardKeys(); //QWERTY
+            
+            usd.PropertyChanged += keyboardDisplatingString; //QWERTY
+            usd.PropertyChanged += bbDisplatingString; //BB
+            
+            usd.PropertyChanged += setUpTheSourceOfDisplayKey;  //QWERTY
+                                                                //needs to be after "((MainWindow)System.Windows.Application.Current.MainWindow).SizeChanged += setUpAllKeysStyle;"
+                                                                //needs to be before "CollectionAlltheButtonsInTheView();"
+
+            usd.PropertyChanged += setUpAllKeysStyles_Loaded;  //QWERTY
+
+            SizeChanged += setUpAllKeysStyles_Normal;   //QWERTY
+
+            _TabControl.SelectionChanged += QWERTYSelected; //QWERTY
+            _TabControl.SelectionChanged += BBSelected;     //BB
+            _TabControl.SelectionChanged += CollectionMainBoxInTheView; //BB
+
+            _TobiiFilterFor_eyeXHost = new GazingDataFilter(_pointsPerSecond, _eyeXHost);
+            OutputGazeData(); //QWERTY AND BB
+            setUpTheBBDot();  //BB
+            addBoardBoxes();  //BB
+
+            // Always "start" the logger (by instantiating it) as the last task in the MainWindow constructor
+            m_sl = s1; // new StatisticsLogger("qwertyTestResults.txt", "QWERTY Keyboard Test Results", new StringBuilder("Tested By: Alex Kerr\r\nQWERTY Keyboard Hover-To-Click time: " + _timerInterval + "ms"));
+            m_s2 = s2; // new StatisticsLogger("bbTestResults.txt", "BB Keyboard Test Results", new StringBuilder("Tested By: Alex Kerr\r\nBeckerBox Keyboard Hover-To-Click time: " + _timerInterval + "ms"));
+        }
+
+        private void OutputGazeData()
+        {
+            // Start the EyeX host.
             _eyeXHost.Start();
+            
+            var lightlyFilteredGazeDataStream = _eyeXHost.CreateGazePointDataStream(Tobii.EyeX.Framework.GazePointDataMode.LightlyFiltered);
 
-            var stream = _eyeXHost.CreateGazePointDataStream(Tobii.EyeX.Framework.GazePointDataMode.LightlyFiltered);
+            // This line below creates a new thread that will constantly run, read data, and put update _currentDataStream with the next piece of data that got read
 
-            stream.Next += (s, e) =>
+            lightlyFilteredGazeDataStream.Next += (s, args) =>
             {
-                //SetCursorPos((int)e.X, (int)e.Y);
-                MessageBox.Show("Nihaoma");
+                //use "BeginInvoke", since the code below runs all the time and generates huge amount of data and easy to crash if shutdown suddenly
+                Dispatcher.BeginInvoke((Action)(() =>
+                { 
+                    GazePointEventArgs e = _TobiiFilterFor_eyeXHost.TobiiCustomizedGazePointFilter(args);
+                    TabItem BBinMain = myParent.Parent as TabItem;
+                    TabControl BBMain = BBinMain.Parent as TabControl;
+                    
+                    if (BBMain.SelectedIndex != BBMain.Items.IndexOf(BBinMain))
+                    {
+                        takingInput = false;
+                        WindowState = WindowState.Minimized;
+                    }
+                    
+                    //Close both eyes for short period, then open both eyes to open the "BB" tab from the main interface
+                    if (_eyeXHost.IsStarted && _eyeXHost.GazeTracking.Value != Tobii.EyeX.Framework.GazeTracking.GazeTracked)
+                    {
+                        if (WindowState != WindowState.Minimized)
+                        {
+                            takingInput = false;
+                            WindowState = WindowState.Minimized;
+                            foreach (Button x in inputBtns)
+                            {
+                                x.IsEnabled = true;
+                            }
+                        }
+                        else
+                        {
+                            BBMain.SelectedIndex = BBMain.Items.IndexOf(BBinMain);
+                            takingInput = true;
+                            return;
+                        }
+                    }
+                    if (takingInput)
+                    {
+                        mScreenCoordinates.X = e.X;
+                        mScreenCoordinates.Y = e.Y;
+
+                        if (_TabControl.SelectedIndex == _TabControl.Items.IndexOf(QWERTYKeyTab)) //Keyboard
+                        {
+                            #region
+                            // *** keyboard ***
+
+                            if (GazingOnObj != tmpBtnCollection.GetElements<Button>(e.X, e.Y))
+                            {
+                                if (GazingOnObj != null)
+                                {
+                                    (GazingOnObj as Control).Background = btnColor;
+
+                                    GazingOnObj.Focusable = false;
+
+                                    _Timer.Stop(); //Only place that "_Timer stops" for "QWERTY Keyboard", if anyone added others please mark
+                                }
+
+                                GazingOnObj = tmpBtnCollection.GetElements<Button>(e.X, e.Y);
+                                inTobiiStreamFoundGazingElement(GazingOnObj);
+                            }
+
+                            #endregion
+                        }
+                        else if (_TabControl.SelectedIndex == _TabControl.Items.IndexOf(BeckerBoxTab)) //BeckerBox
+                        {
+                            #region
+
+                            currentDot.Margin = new Thickness(e.X - dotSize / 2 - BeckerBoxUI.PointToScreen(new Point(0d, 0d)).X, e.Y - dotSize / 2 - BeckerBoxUI.PointToScreen(new Point(0d, 0d)).Y/*- System.Windows.Forms.SystemInformation.ToolWindowCaptionHeight*/, 0, 0); // Sets the position.
+
+                            //Generating the Mainbox Events
+                            if (GazingOnObj != MainBoxInTheView.GetElements<UIElement>(e.X, e.Y))
+                            {
+                                if (GazingOnObj != null)
+                                {
+                                    //Leaving
+                                    _Timer.Stop();
+                                    MouseLeaveBox(GazingOnObj, null);
+                                }
+
+                                //Entering
+                                GazingOnObj = MainBoxInTheView.GetElements<UIElement>(e.X, e.Y);
+                                inTobiiStreamFoundGazingElement(GazingOnObj);
+                            }
+
+                            //Generating the Innerbox Events
+                            /* Woops, there is no need to generate innerbox events at this point */
+                            #endregion
+                        }
+                    }                 
+
+                }), System.Windows.Threading.DispatcherPriority.Loaded);
             };
-            */
-            //Hide cursor, since we are controlling the cursor
-            //Mouse.OverrideCursor = Cursors.None; //temp
-
-            mMainBoardBoxes = new List<TextBlock>();
-            mMainBoardBoxes.Add(MainUpperLeftBox);
-            mMainBoardBoxes.Add(MainUpperMiddleBox);
-            mMainBoardBoxes.Add(MainUpperRightBox);
-            mMainBoardBoxes.Add(MainLowerLeftBox);
-            mMainBoardBoxes.Add(MainLowerMiddleBox);
-            mMainBoardBoxes.Add(MainLowerRightBox);
-
-            mInnerBoardBoxes = new List<TextBlock>();
-            mInnerBoardBoxes.Add(InnerUpperBox);
-            mInnerBoardBoxes.Add(InnerLeftBox);
-            mInnerBoardBoxes.Add(InnerRightBox);
-            mInnerBoardBoxes.Add(InnerBottomLeftBox);
-            mInnerBoardBoxes.Add(InnerBottomMiddleBox);
-            mInnerBoardBoxes.Add(InnerBottomRightBox);
-
-            mMainBorders = new List<Border>();
-            mMainBorders.Add(MainUpperLeftBorder);
-            mMainBorders.Add(MainUpperMiddleBorder);
-            mMainBorders.Add(MainUpperRightBorder);
-            mMainBorders.Add(MainLowerLeftBorder);
-            mMainBorders.Add(MainLowerMiddleBorder);
-            mMainBorders.Add(MainLowerRightBorder);
-
-            mInnerBorders = new List<Border>();
-            mInnerBorders.Add(InnerUpperBorder);
-            mInnerBorders.Add(InnerLeftBorder);
-            mInnerBorders.Add(InnerRightBorder);
-            mInnerBorders.Add(InnerBottomLeftBorder);
-            mInnerBorders.Add(InnerBottomMiddleBorder);
-            mInnerBorders.Add(InnerBottomRightBorder);
-
-            mScreenCoordinates = new MathHelper.Point2D();
-
-            ShowMainBoard();
-        }
-
-        //c# destructors don't work well, so leave this alone
-        ~MainWindow()
-        {
-
-        }
-
-        private bool EmptyTextQueue()
-        {
-            if (null == TextQueueTextBox.Text || 0 == TextQueueTextBox.Text.Length)
-                return true;
-            else
-                return false;
-        }
-
-        private void ClearTextQueue()
-        {
-            TextQueueTextBox.Text = "";
-        }
-
-        private void QueueLetter(TextBlock toEval)
-        {
-            BoxSection boxSection = BoxSection.Up;
-            MathHelper.Line topLeftToBottomRightLine = MathHelper.GetLineEquation(new MathHelper.Point2D(toEval.Margin.Left, toEval.Margin.Top), new MathHelper.Point2D(toEval.Margin.Left + toEval.Width, toEval.Margin.Top + toEval.Height));
-            MathHelper.Line bottomLeftToTopRightLine = MathHelper.GetLineEquation(new MathHelper.Point2D(toEval.Margin.Left, toEval.Margin.Top + toEval.Height), new MathHelper.Point2D(toEval.Margin.Left + toEval.Width, toEval.Margin.Top));
-
-            bool mouseBelowTopLeftToBottomRightLine = false, mouseBelowBottomLeftToTopRightLine = false;
-
-            if (topLeftToBottomRightLine.EvalX(Convert.ToDouble(mScreenCoordinates.X)) >= mScreenCoordinates.Y)
-                mouseBelowTopLeftToBottomRightLine = false;
-            else
-                mouseBelowTopLeftToBottomRightLine = true;
-
-            if (bottomLeftToTopRightLine.EvalX(Convert.ToDouble(mScreenCoordinates.X)) >= mScreenCoordinates.Y)
-                mouseBelowBottomLeftToTopRightLine = false;
-            else
-                mouseBelowBottomLeftToTopRightLine = true;
-
-            if (mouseBelowTopLeftToBottomRightLine && mouseBelowBottomLeftToTopRightLine)
-                boxSection = BoxSection.Down;
-            else if (!mouseBelowTopLeftToBottomRightLine && mouseBelowBottomLeftToTopRightLine)
-                boxSection = BoxSection.Right;
-            else if (mouseBelowTopLeftToBottomRightLine && !mouseBelowBottomLeftToTopRightLine)
-                boxSection = BoxSection.Left;
-            else
-                boxSection = BoxSection.Up;
-
-            string inputLetter = "";
-
-            if (toEval == MainUpperLeftBox)
-            {
-                if (boxSection == BoxSection.Left)
-                    inputLetter = "A";
-                else if (boxSection == BoxSection.Up)
-                    inputLetter = "B";
-                else if (boxSection == BoxSection.Right)
-                    inputLetter = "C";
-                else
-                    inputLetter = "D";
-            }
-            else if (toEval == MainUpperMiddleBox)
-            {
-                if (boxSection == BoxSection.Left)
-                    inputLetter = "E";
-                else if (boxSection == BoxSection.Up)
-                    inputLetter = "F";
-                else if (boxSection == BoxSection.Right)
-                    inputLetter = "G";
-                else
-                    inputLetter = "H";
-            }
-            else if (toEval == MainUpperRightBox)
-            {
-                if (boxSection == BoxSection.Left)
-                    inputLetter = "I";
-                else if (boxSection == BoxSection.Up)
-                    inputLetter = "J";
-                else if (boxSection == BoxSection.Right)
-                    inputLetter = "K";
-                else
-                    inputLetter = "L";
-            }
-            else if (toEval == MainLowerLeftBox)
-            {
-                if (boxSection == BoxSection.Left)
-                    inputLetter = "M";
-                else if (boxSection == BoxSection.Up)
-                    inputLetter = "N";
-                else if (boxSection == BoxSection.Right)
-                    inputLetter = "O";
-                else
-                    inputLetter = "P";
-            }
-            else if (toEval == MainLowerMiddleBox)
-            {
-                if (boxSection == BoxSection.Left)
-                    inputLetter = "Q";
-                else if (boxSection == BoxSection.Up)
-                    inputLetter = "R";
-                else if (boxSection == BoxSection.Right)
-                    inputLetter = "S";
-                else
-                    inputLetter = "T";
-            }
-            else //Lower Right Box
-            {
-                //Y X Z
-                if (mScreenCoordinates.Y >= 620)
-                {
-                    //Y
-                    if (mScreenCoordinates.X <= 1236)
-                        inputLetter = "Y";
-                    //Z
-                    else if (mScreenCoordinates.X >= 1414)
-                        inputLetter = "Z";
-                    //X
-                    else
-                        inputLetter = "X";
-                }
-                //U V W
-                else
-                {
-                    //U
-                    if (mScreenCoordinates.X <= 1236)
-                        inputLetter = "U";
-                    //W
-                    else if (mScreenCoordinates.X >= 1414)
-                        inputLetter = "W";
-                    //V
-                    else
-                        inputLetter = "V";
-                }
-            }
-
-            TextQueueTextBox.Text += inputLetter;
-        }
-
-        private void ShowMainBoard()
-        {
-            HideInnerBoard();
-            DeleteCancelButton.Content = "Delete";
-            foreach (TextBlock t in mMainBoardBoxes)
-                t.Visibility = Visibility.Visible;
-            foreach (Border b in mMainBorders)
-                b.Visibility = Visibility.Visible;
-            mCurrentBoard = BoardType.MainBoard;
-        }
-
-        /*
-        private void HideMainBoard()
-        {
-            foreach (TextBlock t in mMainBoardBoxes)
-                t.Visibility = Visibility.Hidden;
-            foreach (Border b in mMainBorders)
-                b.Visibility = Visibility.Hidden;
-        }
-
-        
-        private void ShowInnerBoard()
-        {
-            HideMainBoard();
-            DeleteCancelButton.Content = "Cancel";
-            foreach (TextBlock t in mInnerBoardBoxes)
-                t.Visibility = Visibility.Visible;
-            foreach (Border b in mInnerBorders)
-                b.Visibility = Visibility.Visible;
-            mCurrentBoard = BoardType.InnerBoxBoard;
-        }
-        */
-
-        private void HideInnerBoard()
-        {
-            foreach (TextBlock t in mInnerBoardBoxes)
-                t.Visibility = Visibility.Hidden;
-            foreach (Border b in mInnerBorders)
-                b.Visibility = Visibility.Hidden;
-        }
-
-        private void MouseEnterBox(object sender, EventArgs e)
-        {
-            TextBlock textBlockSender = sender as TextBlock;
-            textBlockSender.Background = new SolidColorBrush(Colors.Aqua);
-
-            MouseEnterBtn(sender, e);
-        }
-
-        private void MouseLeaveBox(object sender, EventArgs e)
-        {
-            if (null == _lockedSender)
-            {
-                TextBlock textBlockSender = sender as TextBlock;
-                textBlockSender.Background = new SolidColorBrush(Colors.White);
-
-                MouseLeaveBtn(sender, e);
-            }
-        }
-
-        private void Window_MouseMove(object sender, MouseEventArgs e)
-        {
-            mScreenCoordinates.X = e.GetPosition(null).X;
-            mScreenCoordinates.Y = e.GetPosition(null).Y;
-            ScreenCoordinatesTextBox.Text = e.GetPosition(null).X + ", " + e.GetPosition(null).Y;
-        }
-
-        private void MouseEnterBtn(object sender, EventArgs e)
-        {
-            lock (_lock)
-            {
-                _Timer.Reset(sender);
-
-                //remember to add all the gaze-clickable items in here
-                if (mMainBoardBoxes.Contains(sender))
-                {
-                    _Timer._pressIT += MainBoardGridClick;
-                }
-                else if (mInnerBoardBoxes.Contains(sender))
-                {
-                    _Timer._pressIT += InnerBoardGridClick;
-                }
-                else if (ReferenceEquals(sender, ClearButton))
-                {
-                    _Timer._pressIT += ClearButton_Click;
-                }
-
-                else if (ReferenceEquals(sender, DeleteCancelButton))
-                {
-                    _Timer._pressIT += DeleteCancelButton_Click;
-                }
-
-                _Timer.Start();
-            }
-        }
-
-        private void MouseLeaveBtn(object sender, EventArgs e)
-        {
-            lock (_lock)
-            {
-                _Timer.Stop();
-                _Timer._client = null;
-            }
-        }
-
-        //DON'T DELETE THIS METHOD!!!
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
         }
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            GazeMouse.Attach(this); //DON'T DELETE IT!!!
+            /*
+            GazeMouse.Attach(this); //DON'T DELETE IT!!! For the next year so they know there exists such thing
+                                    //using Microsoft.HandsFree.Mouse;
+           */
+                       
+            _tBox.Text = endingCode;
+            btnColor = GetValueFromStyle(typeof(Button), BackgroundProperty) as Brush;
+            WindowState = WindowState.Minimized; //Don't change it, since the "setUpAllKeysStyle" subscribe it, and "setUpAllKeysStyle" contains "CollectionAlltheButtonsInTheView"            
         }
 
         //It is important to kill all other threads before completely exiting otherwise the program won't close properly
         //For whatever reason, c# destructors don't work so well so we have to explicitly tell the timer to kill its thread.
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            GazeMouse.DetachAll(); //DON'T DELETE IT!!!
-            _Timer.KillThread();
-            //base.OnExit(e);
-            //_eyeXHost.Dispose();
+            /*
+            Attention ---> if (_eyeXHost.IsStarted)
+            {
+                GazeMouse.DetachAll(); //DON'T DELETE IT!!!
+            }
+            
+            */
+
+            takingInput = false;
+            _Timer.Stop();
+            _eyeXHost.Dispose();
+            _TobiiFilterFor_eyeXHost.Dispose();
+
+            Keys.Clear();
+
+            m_sl.AddComment("Number of Deletes pressed: " + Convert.ToString(m_ca.CalibrationAnalyzerErrorStatistics.NumberOfDeletesPressed));
+            m_sl.AddComment("Number of Spelling Errors: " + Convert.ToString(m_ca.CalibrationAnalyzerErrorStatistics.NumberOfSpellingErrors));
+            m_sl.AddComment("Number of Keys pressed pressed: " + Convert.ToString(m_ca.CalibrationAnalyzerErrorStatistics.NumberOfKeysPressed));
+            m_sl.AddNewLine();
+
             // always dispose on exit
         }
-
     }
     
 }

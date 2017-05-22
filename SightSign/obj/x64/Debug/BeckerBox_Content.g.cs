@@ -8,11 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("msvcp110.dll")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("msvcr110.dll")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mygazeapi64.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("tobii.eyex.client.dll")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("tobiigazecore64.dll")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("vccorlib110.dll")]
 
 

@@ -5,57 +5,209 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:beckerBox="clr-namespace:BeckerBox"
     mc:Ignorable="d"
-    Title="MainWindow" Height="950" Width="1600" MouseMove="Window_MouseMove" Loaded="MainWindow_OnLoaded" Closing="MainWindow_OnClosing">
+    Title="MainWindow" Height="950" Width="1600" Loaded="MainWindow_OnLoaded" Closing="MainWindow_OnClosing" x:Name="BeckerBoxUI">
 
+    <Window.Resources>
+        <Style x:Key="ScaleStyle" TargetType="Button">
+            <Style.Triggers>
+                <Trigger Property="Focusable" Value="True">
+                    <!-- We are going to use the "Focusable" for this case only. Change to other attributes if need. -->
+                    <!-- All buttons "Focusable" had been set to "false" at "CollectionAlltheButtonsInTheView()" and "CollectionMainBoxInTheView(object sender, EventArgs e)" -->
+                    <Setter Property="Grid.ZIndex" Value="1000"/>
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="FontSize" Value="60" />
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+        </Style>
+        
+        <Style TargetType="{x:Type Control}" x:Key="baseStyle">
+            <Setter Property="FontSize" Value="60" />
+        </Style>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ScaleStyle}"></Style>
+        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource baseStyle}"></Style>
+
+    </Window.Resources>
     <Grid>
-        <TextBox x:Name="TextQueueTextBox" HorizontalAlignment="Left" Height="45" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="1392" FontSize="28"/>
-        <TextBox x:Name="ScreenCoordinatesTextBox" HorizontalAlignment="Left" Height="23" Margin="1411,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="141"/>
+        <Canvas x:Name="bbMainBoard" HorizontalAlignment="Stretch" Panel.ZIndex="999" VerticalAlignment="Stretch" Margin="0"/>
+        <TabControl x:Name="_TabControl" SelectionChanged="_TabControl_SelectionChanged">
+            <TabItem x:Name="QWERTYKeyTab" MinWidth="{Binding TabWidth}" MinHeight="{Binding TabHeight}" Header="Keyboard" FontSize="{Binding tabFontSize}">
+                
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.5*"></RowDefinition>
+                        <RowDefinition Height="3*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
 
-        <!-- MainBoard Borders -->
-        <Border x:Name="MainUpperLeftBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="380" HorizontalAlignment="Left" Margin="0,50,0,0" VerticalAlignment="Top" Width="530"/>
-        <Border x:Name="MainUpperMiddleBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="380" HorizontalAlignment="Left" Margin="530,50,0,0" VerticalAlignment="Top" Width="530"/>
-        <Border x:Name="MainUpperRightBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="380" HorizontalAlignment="Left" Margin="1060,50,0,0" VerticalAlignment="Top" Width="530"/>
-        <Border x:Name="MainLowerLeftBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="380" HorizontalAlignment="Left" Margin="0,430,0,0" VerticalAlignment="Top" Width="530"/>
-        <Border x:Name="MainLowerMiddleBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="380" HorizontalAlignment="Left" Margin="530,430,0,0" VerticalAlignment="Top" Width="530"/>
-        <Border x:Name="MainLowerRightBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="380" HorizontalAlignment="Left" Margin="1060,430,0,0" VerticalAlignment="Top" Width="530"/>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <ScrollViewer beckerBox:Helper.AutoScroll="True">
+                            <TextBlock Grid.Column="0" x:Name="_tBox" Background="LightGray" FontSize="50" Margin="{Binding margin}" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
+                        </ScrollViewer>
+                    </Grid>
 
-        <!-- Becker Box #1 -->
-        <TextBlock x:Name="MainUpperLeftBox" HorizontalAlignment="Left" Margin="0,50,0,0" TextWrapping="Wrap" Text="-       B      -A               C -       D      -" VerticalAlignment="Top" Height="380" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="MainBoardGridClick"/>
+                    <Grid x:Name="_keyBoard" Grid.Row="1" Margin="{Binding margin}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="{Binding margin}"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="{Binding margin}"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="{Binding margin}"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
 
-        <!-- Becker Box #2 -->
-        <TextBlock x:Name="MainUpperMiddleBox" HorizontalAlignment="Left" Margin="530,50,0,0" TextWrapping="Wrap" Text="-       F       -E               G -       H      -" VerticalAlignment="Top" Height="380" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="MainBoardGridClick"/>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <ItemsControl x:Name="_Keyboard_FirstRow" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel IsItemsHost="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
 
-        <!-- Becker Box #3 -->
-        <TextBlock x:Name="MainUpperRightBox" HorizontalAlignment="Left" Margin="1060,50,0,0" TextWrapping="Wrap" Text="-        J       -I                K -        L      -" VerticalAlignment="Top" Height="380" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="MainBoardGridClick"/>
+                            </ItemsControl>
+                            <Button x:Name="Del_btn" Grid.Column="1" Content="Del" Click="Delete_Button_Click"></Button>
+                        </Grid>
+                        <Grid Grid.Row="1"/>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
 
-        <!-- Becker Box #4 -->
-        <TextBlock x:Name="MainLowerLeftBox" HorizontalAlignment="Left" Margin="0,430,0,0" TextWrapping="Wrap" Text="-       N      -M              O -       P       -" VerticalAlignment="Top" Height="380" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="MainBoardGridClick"/>
+                            <Button x:Name="Speak_btn" Grid.Column="0" Content="Recal" Click="Speak_btn_Click"></Button>
+                            <ItemsControl x:Name="_Keyboard_SecondRow" Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel IsItemsHost="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  FlowDirection="RightToLeft"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </Grid>
+                        <Grid Grid.Row="3"/>
+                        <Grid Grid.Row="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
 
-        <!-- Becker Box #5 -->
-        <TextBlock x:Name="MainLowerMiddleBox" HorizontalAlignment="Left" Margin="530,430,0,0" TextWrapping="Wrap" Text="-       R      -Q               S -       T      -" VerticalAlignment="Top" Height="380" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="MainBoardGridClick"/>
+                            <Button x:Name="_Clear" Margin="{Binding margin_right}" Grid.Column="0" Content="Clear" Click="_Clear_Click"></Button>
+                            <ItemsControl x:Name="_Keyboard_ThirdRow" Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel IsItemsHost="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                            <Button x:Name="Enter_btn" Grid.Column="2" Content="Enter" Click="Enter_Button_Click"></Button>
+                        </Grid>
+                        <Grid Grid.Row="5"/>
+                        <Grid Grid.Row="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
 
-        <!-- Becker Box #6 -->
-        <TextBlock x:Name="MainLowerRightBox" HorizontalAlignment="Left" Margin="1060,430,0,0" TextWrapping="Wrap" Text="U      V     W   -                - Y       X      Z" VerticalAlignment="Top" Height="380" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="MainBoardGridClick"/>
+                            <Button x:Name="_Shift" Margin="{Binding margin_right}" Grid.Column="0" Content="Shift" Click="_Shift_Click"></Button>
+                            <ItemsControl x:Name="_Keyboard_ForthRow" Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel IsItemsHost="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                            <Button x:Name="Space_Btn" Grid.Column="2" Content="Space" Click="Space_Button_Click"></Button>
+                        </Grid>
 
-        <!-- SubBoard Borders -->
-        <Border x:Name="InnerUpperBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="253" HorizontalAlignment="Left" Margin="530,50,0,0" VerticalAlignment="Top" Width="530" Visibility="Hidden"/>
-        <Border x:Name="InnerLeftBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="253" HorizontalAlignment="Left" Margin="0,303,0,0" VerticalAlignment="Top" Width="530" Visibility="Hidden"/>
-        <Border x:Name="InnerRightBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="253" HorizontalAlignment="Left" Margin="1060,303,0,0" VerticalAlignment="Top" Width="530" Visibility="Hidden"/>
-        <Border x:Name="InnerBottomLeftBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="253" HorizontalAlignment="Left" Margin="0,556,0,0" VerticalAlignment="Top" Width="530" Visibility="Hidden"/>
-        <Border x:Name="InnerBottomMiddleBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="253" HorizontalAlignment="Left" Margin="530,556,0,0" VerticalAlignment="Top" Width="530" Visibility="Hidden"/>
-        <Border x:Name="InnerBottomRightBorder" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="253" HorizontalAlignment="Left" Margin="1060,556,0,0" VerticalAlignment="Top" Width="530" Visibility="Hidden"/>
+                    </Grid>
 
-        <!-- Alph Letter Boxes -->
-        <TextBlock x:Name="InnerUpperBox" HorizontalAlignment="Left" Margin="530,50,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="253" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="InnerBoardGridClick"/>
-        <TextBlock x:Name="InnerLeftBox" HorizontalAlignment="Left" Margin="0,303,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="253" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="InnerBoardGridClick"/>
-        <TextBlock x:Name="InnerRightBox" HorizontalAlignment="Left" Margin="1060,303,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="253" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="InnerBoardGridClick"/>
-        <TextBlock x:Name="InnerBottomLeftBox" HorizontalAlignment="Left" Margin="0,556,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="253" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="InnerBoardGridClick"/>
-        <TextBlock x:Name="InnerBottomMiddleBox" HorizontalAlignment="Left" Margin="530,556,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="253" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="InnerBoardGridClick"/>
-        <TextBlock x:Name="InnerBottomRightBox" HorizontalAlignment="Left" Margin="1060,556,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="253" Width="530" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="InnerBoardGridClick"/>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="0.5*" MinWidth="100"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
 
-        <!-- Clear and Delete Btns -->
-        <Button x:Name="ClearButton" Content="Clear" HorizontalAlignment="Left" Margin="0,810,0,0" VerticalAlignment="Top" Width="785" Height="109" FontSize="24" MouseEnter="MouseEnterBtn" MouseLeave="MouseLeaveBtn" Click="ClearButton_Click"/>
-        <Button x:Name="DeleteCancelButton" Content="BackSpace" HorizontalAlignment="Left" Margin="790,810,0,0" VerticalAlignment="Top" Width="800" Height="109" FontSize="24" MouseEnter="MouseEnterBtn" MouseLeave="MouseLeaveBtn" Click="DeleteCancelButton_Click"/>
+                        <!--Border Grid.Column="0" BorderBrush="Silver" BorderThickness="5" HorizontalAlignment="Stretch" Margin="{Binding halfMargin_value}" VerticalAlignment="Stretch"-->
+                            <!--RichTextBox x:Name="_tbBotLeft" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="{Binding halfMargin}">
+                                <FlowDocument>
+                                    <Paragraph FontSize="100">
+                                    </Paragraph>
+                                </FlowDocument>
+                            </-->
+                        <Grid Grid.Column="0" x:Name="_Display">
+                            <ItemsControl x:Name="_tbBotLeft" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="{Binding halfMargin}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel IsItemsHost="True" HorizontalAlignment="Center" VerticalAlignment="Stretch"  FlowDirection="LeftToRight"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </Grid>
+                        <!--/-->
+                        <!--GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Background="White"/-->
+                        <Button x:Name="DoneBtn" Grid.Column="1" Panel.ZIndex="0" Click="DoneBtnClick" Visibility="Hidden">Done</Button>
+                        <Grid Panel.ZIndex="1" Grid.Column="1">
+                            <Grid x:Name="_btnBotGrid">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Button Grid.Column="0" x:Name="_btnBotLeft" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="{Binding halfMargin}" Click="_btnBotLeft_Click" Content="&#x2190;" />
+                                <Button Grid.Column="1" x:Name="_btnBotRight" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="{Binding halfMargin_right}" Click="_btnBotRight_Click" Content="&#x2794;" />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem x:Name="BeckerBoxTab" MinWidth="{Binding TabWidth}" MinHeight="{Binding TabHeight}" FontSize="{Binding tabFontSize}" Header="BeckerBox">                
+                <Viewbox>
+                    <Grid x:Name="BBtbs">
+                        <TextBox x:Name="TextQueueTextBox" HorizontalAlignment="Left" Height="45" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="1392" FontSize="28"/>
+                        <TextBox x:Name="ScreenCoordinatesTextBox" HorizontalAlignment="Left" Height="23" Margin="1411,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="91"/>
+                        
+                        <!-- MainBoard Borders -->
+                        <Border x:Name="ABCD_Border" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="380" HorizontalAlignment="Left" Margin="0,50,0,0" VerticalAlignment="Top" Width="380"/>
+                        <Border x:Name="EFGH_Border" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="380" HorizontalAlignment="Left" Margin="380,50,0,0" VerticalAlignment="Top" Width="380"/>
+                        <Border x:Name="IJKL_Border" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="380" HorizontalAlignment="Left" Margin="760,50,0,0" VerticalAlignment="Top" Width="380"/>
+                        <Border x:Name="OTHER_Border" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="380" HorizontalAlignment="Left" Margin="1140,50,0,0" VerticalAlignment="Top" Width="380"/>
+                        <Border x:Name="MNOP_Border" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="380" HorizontalAlignment="Left" Margin="0,430,0,0" VerticalAlignment="Top" Width="380"/>
+                        <Border x:Name="QRST_Border" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="380" HorizontalAlignment="Left" Margin="380,430,0,0" VerticalAlignment="Top" Width="380"/>
+                        <Border x:Name="UVWX_Border" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="380" HorizontalAlignment="Left" Margin="760,430,0,0" VerticalAlignment="Top" Width="380"/>
+                        <Border x:Name="YZ_Border" Panel.ZIndex="3" BorderBrush="Silver" BorderThickness="5" Height="380" HorizontalAlignment="Left" Margin="1140,430,0,0" VerticalAlignment="Top" Width="380"/>
+
+                        <!-- MainBoard Boxes -->
+                        <TextBlock x:Name="ABCD_Box" HorizontalAlignment="Left" Margin="0,50,0,0" TextWrapping="Wrap" Text="-    B    -A         C -    D    -" VerticalAlignment="Top" Height="380" Width="380" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="MainBoardGridClick"/>
+                        <TextBlock x:Name="EFGH_Box" HorizontalAlignment="Left" Margin="380,50,0,0" TextWrapping="Wrap" Text="-     F    -E          G -    H    -" VerticalAlignment="Top" Height="380" Width="380" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="MainBoardGridClick"/>
+                        <TextBlock x:Name="IJLK_Box" HorizontalAlignment="Left" Margin="760,50,0,0" TextWrapping="Wrap" Text="-     J     -I           K -     L    -" VerticalAlignment="Top" Height="380" Width="380" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="MainBoardGridClick"/>
+                        <TextBlock x:Name="OTHER_Box" HorizontalAlignment="Left" Margin="1140,50,0,0" TextWrapping="Wrap" Text="- HELP! -No    Yes -   IDK  -" VerticalAlignment="Top" Height="380" Width="380" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="MainBoardGridClick"/>
+                        <TextBlock x:Name="MNOP_Box" HorizontalAlignment="Left" Margin="0,430,0,0" TextWrapping="Wrap" Text="-    N    -M        O -     P    -" VerticalAlignment="Top" Height="380" Width="380" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="MainBoardGridClick"/>
+                        <TextBlock x:Name="QRST_Box" HorizontalAlignment="Left" Margin="380,430,0,0" TextWrapping="Wrap" Text="-     R    -Q         S -     T    -" VerticalAlignment="Top" Height="380" Width="380" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="MainBoardGridClick"/>
+                        <TextBlock x:Name="UVWX_Box" HorizontalAlignment="Left" Margin="760,430,0,0" TextWrapping="Wrap" Text="-    V     -U        W                -    X     -   " VerticalAlignment="Top" Height="380" Width="380" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="MainBoardGridClick"/>
+                        <TextBlock x:Name="YZ_Box" HorizontalAlignment="Left" Margin="1140,430,0,0" TextWrapping="Wrap" Text="-    Z     -Y        Sp                -     '     -   " VerticalAlignment="Top" Height="380" Width="380" MouseEnter="MouseEnterBox" MouseLeave="MouseLeaveBox" FontSize="96" MouseDown="MainBoardGridClick"/>
+
+                        <!-- Clear and Delete Btns -->
+                        <Button x:Name="ClearButton" Content="Clear" HorizontalAlignment="Left" Margin="0,810,0,0" VerticalAlignment="Top" Width="755" Height="109" FontSize="24" MouseEnter="MouseEnterBtn" MouseLeave="MouseLeaveBtn" Click="ClearButton_Click"/>
+                        <Button x:Name="DeleteCancelButton" Content="BackSpace" HorizontalAlignment="Left" Margin="760,810,0,0" VerticalAlignment="Top" Width="760" Height="109" FontSize="24" MouseEnter="MouseEnterBtn" MouseLeave="MouseLeaveBtn" Click="DeleteCancelButton_Click"/>
+                    </Grid>
+                </Viewbox>
+            </TabItem>
+        </TabControl>
+
     </Grid>
 
 </Window>
