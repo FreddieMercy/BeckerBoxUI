@@ -40,6 +40,21 @@ namespace Tobii_Eris_Library
 
             StreamReader reader = new StreamReader(word_list_file_path);
 
+            //******************* Patrick, Don't Change those code !!!!!!!!!!!! ***************************************************
+            /*
+            string s = "";
+            s = System.AppDomain.CurrentDomain.BaseDirectory + "../../../SightSign/DictionaryFiles/";
+
+            //If you have error, right click on "MainUI" then -> Properties ->target framework -> .Net Framework ** (whatever the biggest nummber is)
+            //Also, make sure that the "MainUI" is the startup project
+
+            if (!GeneralTools.CheckFileExists(s + word_list_file_path))
+                throw new FileNotFoundException("File \"" + word_list_file_path + "\" not found.");
+
+            StreamReader reader = new StreamReader(s + word_list_file_path);
+            */
+            //**********************************************************************************************************************
+
             while (!reader.EndOfStream)
             {
                 current_word = reader.ReadLine();
